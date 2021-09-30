@@ -16,5 +16,13 @@ export default {
   data() {
     return {};
   },
+  sockets: {
+    connect() {
+      console.log("[Socket.io] Connected!");
+    },
+    greetings(data) {
+      console.log("[Socket.io] " + data);
+    },
+  },
 };
 </script>
