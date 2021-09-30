@@ -1,5 +1,7 @@
 <template>
-  <hello-world />
+  <div>
+    <hello-world />
+  </div>
 </template>
 
 <script>
@@ -10,6 +12,16 @@ export default {
 
   components: {
     HelloWorld,
+  },
+  data() {
+    return {
+      messages: [],
+    };
+  },
+  sockets: {
+    chat_message(id, msg) {
+      this.messages.push({ id, msg });
+    },
   },
 };
 </script>
