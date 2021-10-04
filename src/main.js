@@ -7,7 +7,7 @@ import vuetify from "./plugins/vuetify";
 import VueSocketIOExt from "vue-socket.io-extended";
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:4200", {
+const socket = io("http://localhost:3000", {
   reconnectionDelayMax: 10000,
 });
 

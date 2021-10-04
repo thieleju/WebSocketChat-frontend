@@ -1,12 +1,22 @@
 <template>
-  <v-app>
+  <v-app app class="appClass">
     <v-app-bar app color="primary" dark>
+      <v-toolbar-title>WebSocket Chat App</v-toolbar-title>
       <v-spacer></v-spacer>
     </v-app-bar>
 
-    <v-main>
-      <router-view />
+    <!-- Sizes your content based upon application components -->
+    <v-main color="secondary">
+      <!-- Provides the application the proper gutter -->
+      <v-container fluid>
+        <!-- If using vue-router -->
+        <router-view></router-view>
+      </v-container>
     </v-main>
+
+    <v-footer app>
+      <!-- -->
+    </v-footer>
   </v-app>
 </template>
 
@@ -20,9 +30,12 @@ export default {
     connect() {
       console.log("[Socket.io] Connected!");
     },
-    greetings(data) {
-      console.log("[Socket.io] " + data);
-    },
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.appClass {
+  background: var(--v-background-base) !important;
+}
+</style>
