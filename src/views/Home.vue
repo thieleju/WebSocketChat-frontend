@@ -164,6 +164,8 @@ export default {
 .cardRightContent {
   text-align: -webkit-left;
   margin-bottom: 1.5vh;
+  padding-bottom: 8px;
+  padding-top: 8px;
 }
 .messagesWrapper {
   flex-grow: 100;
