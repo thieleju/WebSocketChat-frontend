@@ -9,6 +9,7 @@
       <!-- containerRight content -->
       <vuescroll :ops="ops" class="vuescroll" ref="chat">
         <div v-for="message in messages" :key="message.socketID + makeid(12)">
+          <!-- Other messages -->
           <div class="messagesWrapperLeft" v-if="message.user.name != username">
             <v-card class="cardLeft">
               <div class="caption text-xs nameSpace">
@@ -20,6 +21,7 @@
               ></v-card-text>
             </v-card>
           </div>
+          <!-- Own messages -->
           <div
             class="messagesWrapperRight"
             v-if="message.user.name == username"
@@ -32,37 +34,6 @@
             </v-card>
           </div>
         </div>
-        <!-- <div class="messagesWrapper">
-          <div
-            v-for="message in messages"
-            :key="message.socketID + makeid(12)"
-            class="loop"
-          >
-            <v-card class="cardRight" v-if="message.user.name == username">
-              <v-card-text
-                class="cardRightContent"
-                v-html="message.text"
-              ></v-card-text>
-            </v-card>
-          </div>
-        </div>
-        <div class="messagesWrapperRight">
-          <div
-            v-for="message in messages"
-            :key="message.socketID + makeid(12)"
-            class="loop"
-          >
-            <v-card class="cardLeft">
-              <div class="caption text-xs nameSpace">
-                {{ message.user.name }}
-              </div>
-              <v-card-text
-                class="cardLeftContent"
-                v-html="message.text"
-              ></v-card-text>
-            </v-card>
-          </div>
-        </div> -->
       </vuescroll>
       <v-textarea
         v-model="text"
