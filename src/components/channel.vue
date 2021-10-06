@@ -2,14 +2,27 @@
   <div>
     <div class="headCont" v-if="enabled">
       <!-- containerRight title -->
-      <div class="titleRight">{{ title }}</div>
+      <div class="titleRight">
+        <v-icon left>mdi-{{ icon }}</v-icon>
+        {{ title }} - {{ username }}
+      </div>
       <!-- containerRight content -->
       <vuescroll :ops="ops" class="vuescroll" ref="chat">
-        <div class="messagesWrapper" :ops="ops">
+        <div v-for="message in messages" :key="message.socketID + makeid(12)">
+          <div class="messagesWrapperLeft" v-if="message.user.name != username">
+            <v-card class="cardLeft">
+              <div class="caption text-xs nameSpace">
+                {{ message.user.name }}
+              </div>
+              <v-card-text
+                class="cardLeftContent"
+                v-html="message.text"
+              ></v-card-text>
+            </v-card>
+          </div>
           <div
-            v-for="message in messages"
-            :key="message.socketID + makeid(12)"
-            class="loop"
+            class="messagesWrapperRight"
+            v-if="message.user.name == username"
           >
             <v-card class="cardRight">
               <v-card-text
@@ -19,10 +32,40 @@
             </v-card>
           </div>
         </div>
+        <!-- <div class="messagesWrapper">
+          <div
+            v-for="message in messages"
+            :key="message.socketID + makeid(12)"
+            class="loop"
+          >
+            <v-card class="cardRight" v-if="message.user.name == username">
+              <v-card-text
+                class="cardRightContent"
+                v-html="message.text"
+              ></v-card-text>
+            </v-card>
+          </div>
+        </div>
+        <div class="messagesWrapperRight">
+          <div
+            v-for="message in messages"
+            :key="message.socketID + makeid(12)"
+            class="loop"
+          >
+            <v-card class="cardLeft">
+              <div class="caption text-xs nameSpace">
+                {{ message.user.name }}
+              </div>
+              <v-card-text
+                class="cardLeftContent"
+                v-html="message.text"
+              ></v-card-text>
+            </v-card>
+          </div>
+        </div> -->
       </vuescroll>
       <v-textarea
         v-model="text"
-        autofocus
         placeholder="Type your message ..."
         no-resize
         rows="2"
@@ -51,6 +94,8 @@ export default {
     return {
       enabled: false,
       id: 0,
+      username: "",
+      color: "",
       channelID: "",
       title: "",
       icon: "",
@@ -98,6 +143,9 @@ export default {
     };
   },
   mounted() {
+    // set username
+    this.username = this.$store.getters.getUsername;
+
     // send update to trigger "messages_update_for_channel"
     this.channelID = this.$route.params.channelID;
     this.$socket.client.emit("update_messages_for_channel", this.channelID);
@@ -111,6 +159,7 @@ export default {
         this.icon = data.channel.icon;
         this.messages = data.channel.messages;
         this.enabled = true;
+        console.log(this.messages);
       }
     },
   },
@@ -136,8 +185,8 @@ export default {
           channelID: this.channelID,
           message: this.text.trim(),
           user: {
-            name: "name",
-            color: "red",
+            name: this.username,
+            color: this.color,
           },
         });
         this.text = "";
@@ -171,8 +220,6 @@ export default {
   background: var(--v-primary-base);
   margin: 0;
   min-height: 2.5em;
-  display: flex;
-  flex-direction: column;
   margin-right: -4px;
   margin-left: -12px;
   margin-top: -12px;
@@ -199,16 +246,43 @@ export default {
 .cardRightContent {
   text-align: -webkit-left;
   margin-bottom: 1.5vh;
-  padding-bottom: 8px;
-  padding-top: 8px;
+  padding-bottom: 5px !important;
+  padding-top: 10px !important;
+  margin-bottom: 3px !important;
 }
-.messagesWrapper {
+.cardLeft {
+  background: var(--v-secondary-base) !important;
+}
+.cardLeftContent {
+  text-align: -webkit-left;
+  margin-bottom: 1.5vh;
+  padding-bottom: 5px !important;
+  padding-top: 3px !important;
+  margin-bottom: 3px !important;
+}
+.nameSpace {
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-top: 4px;
+  padding-bottom: 0;
+}
+.messagesWrapperLeft {
+  flex-grow: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: auto;
+  padding-right: 15px;
+  margin-bottom: 6px;
+}
+.messagesWrapperRight {
   flex-grow: 100;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   overflow: auto;
   padding-right: 15px;
+  margin-bottom: 6px;
 }
 .textarea {
   padding-right: 11px;
