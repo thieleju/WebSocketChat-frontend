@@ -40,4 +40,14 @@ const router = new VueRouter({
   routes,
 });
 
+import store from "../store/index";
+
+router.beforeEach((to, from, next) => {
+  if (store.getters.getUsername || to.name == "chat.settings") {
+    next();
+  } else {
+    next({ name: "chat.settings" });
+  }
+});
+
 export default router;

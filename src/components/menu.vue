@@ -1,7 +1,9 @@
 <template>
   <div>
     <!-- containerLeft title -->
-    <div class="titleLeft">{{ menu.title }}</div>
+    <div class="titleLeft">
+      <v-icon left>mdi-forum</v-icon> {{ menu.title }}
+    </div>
     <!-- containerLeft content -->
     <v-list class="leftList" dense expand subheader>
       <v-subheader>Channels</v-subheader>
@@ -38,7 +40,7 @@
           <v-list-item-title>Connected Users</v-list-item-title>
         </template>
 
-        <v-list-item v-for="channel in menu.channels" :key="channel.id">
+        <v-list-item v-for="channel in menu.channels" :key="channel.id" link>
           <v-list-item-title>{{ channel.title }}</v-list-item-title>
         </v-list-item>
       </v-list-group>
