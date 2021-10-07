@@ -64,6 +64,9 @@
         </v-card>
       </div>
     </div>
+    <div class="caption text-xs text-center hint">
+      You might need to zoom in for a better experience
+    </div>
   </div>
 </template>
 
@@ -165,6 +168,9 @@ export default {
 }
 .v-slide-group__wrapper {
   padding-left: 2px;
+}
+.hint {
+  margin-top: 6vh;
 }
 
 //  classes from channel.vue

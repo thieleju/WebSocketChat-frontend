@@ -7,8 +7,8 @@
         xs="12"
         sm="4"
         md="3"
-        lg="3"
-        xl="3"
+        lg="2"
+        xl="2"
         class="containerLeft"
       >
         <leftMenu></leftMenu>
@@ -19,8 +19,8 @@
         xs="12"
         sm="6"
         md="6"
-        lg="6"
-        xl="6"
+        lg="5"
+        xl="4"
         class="containerRight"
       >
         <transition name="fade" mode="out-in">

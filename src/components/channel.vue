@@ -4,10 +4,21 @@
       <!-- containerRight title -->
       <div class="titleRight">
         <v-icon left>mdi-{{ icon }}</v-icon>
-        {{ title }} - {{ username }}
+        {{ title }}
+        <v-spacer></v-spacer>
+        <v-icon left>mdi-account-circle</v-icon>
+        {{ username }}
       </div>
       <!-- containerRight content -->
       <vuescroll :ops="ops" class="vuescroll" ref="chat">
+        <!-- No messages yet heading -->
+        <div v-if="messages.length == 0" class="emptyChannelBoxContainer">
+          <div class="emptyChannelBox body-1 text-center">
+            <v-icon left>mdi-sleep</v-icon>No messages yet<v-icon right
+              >mdi-sleep</v-icon
+            >
+          </div>
+        </div>
         <div v-for="message in messages" :key="message.socketID + makeid(12)">
           <!-- Other messages -->
           <div class="messagesWrapperLeft" v-if="message.user.name != username">
@@ -193,21 +204,24 @@ export default {
   height: 77vh;
 }
 .titleRight {
+  display: flex;
   background: var(--v-primary-base);
   margin: 0;
-  min-height: 2.5em;
   margin-right: -4px;
   margin-left: -12px;
   margin-top: -12px;
   border-radius: 10px 10px 0 0;
   padding: 10px;
   padding-left: 20px;
+  padding-bottom: 7px;
   border-bottom: solid 3px var(--v-background2-base);
 }
 .vuescroll {
-  height: 60vh;
   display: flex;
   flex-direction: column;
+}
+.__view {
+  min-height: 0 !important;
 }
 .containerContent {
   min-height: 100%;
@@ -249,8 +263,8 @@ export default {
   align-items: flex-start;
   overflow: auto;
   padding-right: 15px;
-  margin-bottom: 8px;
-  margin-top: 2px;
+  // margin-bottom: 8px;
+  margin-top: 8px;
   max-width: 75%;
 }
 .messagesWrapperRight {
@@ -261,12 +275,27 @@ export default {
   overflow: auto;
   padding-right: 15px;
   margin-top: 2px;
-  margin-bottom: 8px;
+  // margin-bottom: 8px;
+  margin-top: 8px;
   margin-left: auto;
   margin-right: 0;
   max-width: 75%;
 }
 .textarea {
   padding-right: 11px;
+}
+.emptyChannelBoxContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  position: relative;
+}
+.emptyChannelBox {
+  margin-top: 10vh;
+  position: absolute;
+  padding: 20px;
+  background: var(--v-background-base);
+  border-bottom: solid 3px var(--v-background2-base);
+  border-radius: 10px;
 }
 </style>
