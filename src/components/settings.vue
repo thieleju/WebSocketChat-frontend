@@ -6,14 +6,14 @@
       Settings
     </div>
     <div class="textInputHeading body-1 text-center">
-      <strong>Warning:</strong> Usernames are <strong>not</strong> unique, but
+      <strong>Warning:</strong> Usernames are <strong>NOT</strong> unique, but
       required!
     </div>
     <div class="textInputContainer">
       <v-text-field
-        v-model="text"
+        v-model="username"
         label="Your Username"
-        counter="25"
+        :counter="maxChars"
         append-icon="mdi-autorenew"
         @click:append="getNewRandomUserName"
       ></v-text-field>
@@ -27,15 +27,26 @@ import { uniqueNamesGenerator, starWars } from "unique-names-generator";
 export default {
   data() {
     return {
-      text: "",
+      username: "",
+      maxChars: 25,
     };
   },
   created() {
-    this.text = this.$store.getters.getUsername;
+    if (this.$store.getters.getUsername) {
+      this.username = this.$store.getters.getUsername;
+    } else {
+      this.getNewRandomUserName();
+    }
   },
   watch: {
-    text() {
-      this.$store.dispatch("change_username", this.text);
+    username() {
+      if (this.username.length <= this.maxChars) {
+        if (this.username.length == 0) this.getNewRandomUserName();
+        else {
+          this.$store.dispatch("change_username", this.username);
+          this.$socket.client.emit("update_username", this.username);
+        }
+      }
     },
   },
   methods: {
@@ -46,7 +57,7 @@ export default {
         separator: " ",
         style: "capital",
       });
-      this.text = stName;
+      this.username = stName;
     },
   },
 };
