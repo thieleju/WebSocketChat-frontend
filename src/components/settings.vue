@@ -65,7 +65,7 @@
       </div>
     </div>
     <div class="caption text-xs text-center hint">
-      You might need to zoom in for a better experience
+      You might need to zoom in for a better experience (Ctrl + '+')
     </div>
   </div>
 </template>
