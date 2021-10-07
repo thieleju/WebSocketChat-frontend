@@ -72,7 +72,7 @@ export default {
       icon: "",
       text: "",
       messages: [],
-      maxChars: 140,
+      maxChars: 200,
       ops: {
         vuescroll: {
           mode: "native",
@@ -114,6 +114,7 @@ export default {
     };
   },
   mounted() {
+    // TODO https://www.npmjs.com/package/lzutf8
     // set username
     this.username = this.$store.getters.getUsername;
 
@@ -130,7 +131,8 @@ export default {
         this.icon = data.channel.icon;
         this.messages = data.channel.messages;
         this.enabled = true;
-        console.log(this.messages);
+      } else {
+        // TODO update other channels icons
       }
     },
   },
@@ -244,7 +246,9 @@ export default {
   align-items: flex-start;
   overflow: auto;
   padding-right: 15px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
+  margin-top: 2px;
+  max-width: 75%;
 }
 .messagesWrapperRight {
   flex-grow: 100;
@@ -253,7 +257,11 @@ export default {
   align-items: flex-end;
   overflow: auto;
   padding-right: 15px;
-  margin-bottom: 6px;
+  margin-top: 2px;
+  margin-bottom: 8px;
+  margin-left: auto;
+  margin-right: 0;
+  max-width: 75%;
 }
 .textarea {
   padding-right: 11px;

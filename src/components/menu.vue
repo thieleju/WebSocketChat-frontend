@@ -40,8 +40,8 @@
           <v-list-item-title>Connected Users</v-list-item-title>
         </template>
 
-        <v-list-item v-for="channel in menu.channels" :key="channel.id" link>
-          <v-list-item-title>{{ channel.title }}</v-list-item-title>
+        <v-list-item v-for="user in menu.connectedUsers" :key="user.id" link>
+          <v-list-item-title>{{ user.username }}</v-list-item-title>
         </v-list-item>
       </v-list-group>
     </v-list>
@@ -55,6 +55,7 @@ export default {
       menu: {
         title: "",
         channels: [],
+        connectedUsers: [],
       },
     };
   },
@@ -62,6 +63,9 @@ export default {
     channel_details(details) {
       this.menu.title = details.menu_name;
       this.menu.channels = details.channels;
+    },
+    userlist(userlist) {
+      this.menu.connectedUsers = userlist;
     },
   },
   methods: {
