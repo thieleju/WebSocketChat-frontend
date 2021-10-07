@@ -12,7 +12,10 @@
           <!-- Other messages -->
           <div class="messagesWrapperLeft" v-if="message.user.name != username">
             <v-card class="cardLeft">
-              <div class="caption text-xs nameSpace">
+              <div
+                class="caption text-xs nameSpace"
+                :style="{ color: message.user.color }"
+              >
                 {{ message.user.name }}
               </div>
               <v-card-text
