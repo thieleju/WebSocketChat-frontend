@@ -37,7 +37,11 @@
         no-action
       >
         <template v-slot:activator>
-          <v-list-item-title>Connected Users</v-list-item-title>
+          <v-list-item-content>
+            <v-badge :content="menu.usercount" inline>
+              <v-list-item-title>Connected Users</v-list-item-title>
+            </v-badge>
+          </v-list-item-content>
         </template>
 
         <v-list-item v-for="user in menu.connectedUsers" :key="user.id" link>
@@ -56,6 +60,7 @@ export default {
         title: "",
         channels: [],
         connectedUsers: [],
+        usercount: 1,
       },
     };
   },
@@ -66,6 +71,7 @@ export default {
     },
     userlist(userlist) {
       this.menu.connectedUsers = userlist;
+      this.menu.usercount = this.menu.connectedUsers.length;
     },
   },
   methods: {
@@ -95,5 +101,8 @@ export default {
 }
 .leftList {
   background: var(--v-background2-base) !important;
+}
+.v-list-group__header__append-icon {
+  display: none !important;
 }
 </style>
