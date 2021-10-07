@@ -45,7 +45,9 @@
         </template>
 
         <v-list-item v-for="user in menu.connectedUsers" :key="user.id" link>
-          <v-list-item-title>{{ user.username }}</v-list-item-title>
+          <v-list-item-title :style="{ color: user.color }">{{
+            user.username
+          }}</v-list-item-title>
         </v-list-item>
       </v-list-group>
     </v-list>
