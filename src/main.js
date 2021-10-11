@@ -10,9 +10,20 @@ axios.defaults.baseURL = process.env.VUE_APP_BASE_URL;
 import VueSocketIOExt from "vue-socket.io-extended";
 import { io } from "socket.io-client";
 
-const socket = io(process.env.VUE_APP_BASE_URL, {
-  reconnectionDelayMax: 10000,
-});
+var socket;
+
+if (process.env.VUE_APP_SOCKET_PATH) {
+  // production
+  socket = io(process.env.VUE_APP_BASE_URL, {
+    path: process.env.VUE_APP_SOCKET_PATH,
+    reconnectionDelayMax: 10000,
+  });
+} else {
+  // development
+  socket = io(process.env.VUE_APP_BASE_URL, {
+    reconnectionDelayMax: 10000,
+  });
+}
 
 Vue.use(axios);
 Vue.use(VueSocketIOExt, socket, { store });
