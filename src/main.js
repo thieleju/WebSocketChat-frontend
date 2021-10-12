@@ -5,8 +5,6 @@ import store from "./store";
 import vuetify from "./plugins/vuetify";
 import axios from "axios";
 
-axios.defaults.baseURL = process.env.VUE_APP_BASE_URL;
-
 import VueSocketIOExt from "vue-socket.io-extended";
 import { io } from "socket.io-client";
 
@@ -14,12 +12,15 @@ var socket;
 
 if (process.env.VUE_APP_SOCKET_PATH) {
   // production
+  axios.defaults.baseURL =
+    process.env.VUE_APP_BASE_URL + process.env.VUE_APP_API_PATH;
   socket = io(process.env.VUE_APP_BASE_URL, {
-    path: process.env.VUE_APP_SOCKET_PATH,
+    path: process.env.VUE_APP_API_PATH + "/socket.io",
     reconnectionDelayMax: 10000,
   });
 } else {
   // development
+  axios.defaults.baseURL = process.env.VUE_APP_BASE_URL;
   socket = io(process.env.VUE_APP_BASE_URL, {
     reconnectionDelayMax: 10000,
   });
