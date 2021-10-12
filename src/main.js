@@ -10,7 +10,7 @@ import { io } from "socket.io-client";
 
 var socket;
 
-if (process.env.VUE_APP_SOCKET_PATH) {
+if (process.env.VUE_APP_API_PATH) {
   // production
   axios.defaults.baseURL =
     process.env.VUE_APP_BASE_URL + process.env.VUE_APP_API_PATH;
