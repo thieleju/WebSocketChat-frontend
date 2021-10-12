@@ -14,16 +14,19 @@ const routes = [
       {
         path: "",
         component: settings,
+        meta: { title: "Settings" },
       },
       {
         path: "settings",
         name: "chat.settings",
         component: settings,
+        meta: { title: "Settings" },
       },
       {
         path: "channel/:channelID",
         name: "chat.channel",
         component: channel,
+        meta: { title: "Channel" },
       },
     ],
   },
@@ -48,6 +51,14 @@ router.beforeEach((to, from, next) => {
   } else {
     next({ name: "chat.settings" });
   }
+});
+
+router.afterEach((to) => {
+  Vue.nextTick(() => {
+    if (store.getters.getUsername)
+      document.title = store.getters.getUsername + " - " + to.meta.title;
+    else document.title = to.meta.title;
+  });
 });
 
 export default router;
