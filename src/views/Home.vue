@@ -1,11 +1,41 @@
 <template>
   <div class="container">
-    <div class="text-h2 text-center">Hey</div>
+    <vue-typer
+      class="text-center"
+      :text="textArray"
+      :repeat="Infinity"
+      :shuffle="false"
+      initial-action="typing"
+      :pre-type-delay="100"
+      :type-delay="200"
+      :pre-erase-delay="1000"
+      :erase-delay="1000"
+      erase-style="clear"
+      :erase-on-complete="true"
+      caret-animation="blink"
+    ></vue-typer>
   </div>
 </template>
 
 <script>
-export default {};
+import { VueTyper } from "vue-typer";
+
+export default {
+  components: {
+    VueTyper,
+  },
+  data() {
+    return {
+      textArray: [
+        "Hello",
+        "My name is julian",
+        "And this is my site",
+        "Enjoy your stay",
+        "Please be nice 😄",
+      ],
+    };
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -15,5 +45,21 @@ export default {};
   width: 100vw;
   justify-content: space-around;
   align-items: center;
+}
+
+.vue-typer {
+  display: inline-block;
+  font-family: monospace, "Lucida Console", "Courier New";
+  font-size: 4em;
+  z-index: 10;
+
+  ::v-deep .custom.caret {
+    width: 0.1em;
+    background-color: #dbdbdc;
+  }
+
+  ::v-deep .typed {
+    color: #dbdbdc;
+  }
 }
 </style>
