@@ -107,21 +107,19 @@ export default {
     };
   },
   created() {
-    if (this.$store.getters.getUsername) {
+    if (this.$store.getters.getUsername)
       this.username = this.$store.getters.getUsername;
-    } else {
-      this.getNewRandomUserName();
-    }
+    else this.getNewRandomUserName();
+
+    if (this.$store.getters.getColor)
+      this.currentColor = this.$store.getters.getColor;
     this.$store.dispatch("change_color", this.currentColor);
   },
   watch: {
     username() {
       if (this.username.length <= this.maxChars) {
         if (this.username.length == 0) this.getNewRandomUserName();
-        else {
-          this.$store.dispatch("change_username", this.username);
-          // this.$socket.client.emit("update_username", this.username);
-        }
+        else this.$store.dispatch("change_username", this.username);
       }
     },
     selection(newVar) {

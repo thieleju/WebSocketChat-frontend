@@ -1,5 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+
+// home
+import Home from "../views/Home.vue";
+
+// chat
 import Chat from "../views/Chat.vue";
 import settings from "../components/settings.vue";
 import channel from "../components/channel.vue";
@@ -9,18 +14,23 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
+    component: Home,
+    name: "home",
+    meta: { title: "Home" },
+  },
+  {
+    path: "/chat",
     component: Chat,
     children: [
       {
         path: "",
-        component: settings,
-        meta: { title: "Settings" },
+        redirect: { name: "chat.settings" },
       },
       {
         path: "settings",
         name: "chat.settings",
         component: settings,
-        meta: { title: "Settings" },
+        meta: { title: "Chat - Settings" },
       },
       {
         path: "channel/:channelID",
@@ -46,18 +56,25 @@ const router = new VueRouter({
 import store from "../store/index";
 
 router.beforeEach((to, from, next) => {
+  // redirect to settings if chat is visited
   if (store.getters.getUsername || to.name == "chat.settings") {
     next();
-  } else {
+  } else if (to.name.slice(0, 4) === "chat") {
     next({ name: "chat.settings" });
+  } else {
+    next();
   }
 });
 
 router.afterEach((to) => {
   Vue.nextTick(() => {
-    if (store.getters.getUsername)
-      document.title = store.getters.getUsername + " - " + to.meta.title;
-    else document.title = to.meta.title;
+    if (to.name.slice(0, 4) === "chat") {
+      if (store.getters.getUsername)
+        document.title = store.getters.getUsername + " - node5";
+      else document.title = to.meta.title + " - node5";
+    } else {
+      document.title = to.meta.title + " - node5";
+    }
   });
 });
 
