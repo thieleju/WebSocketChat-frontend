@@ -76,6 +76,9 @@ export default {
       this.menu.usercount = this.menu.connectedUsers.length;
     },
   },
+  mounted() {
+    this.$socket.client.emit("trigger_update", true);
+  },
   methods: {
     routeToName(name) {
       this.$router.push({ name: "chat." + name }).catch(() => {});
@@ -103,6 +106,7 @@ export default {
 }
 .leftList {
   background: var(--v-background2-base) !important;
+  border-radius: 0 0 10px 10px !important;
 }
 .v-list-group__header__append-icon {
   display: none !important;

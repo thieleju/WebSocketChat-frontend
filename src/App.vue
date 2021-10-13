@@ -1,8 +1,14 @@
 <template>
   <v-app app class="appClass">
-    <v-app-bar app color="primary" dark>
-      <v-toolbar-title>Chat App with Socket.io</v-toolbar-title>
-      <v-spacer></v-spacer>
+    <v-app-bar app dark flat>
+      <!-- <v-toolbar-title>Chat App with Socket.io</v-toolbar-title> -->
+      <!-- <v-spacer></v-spacer> -->
+
+      <v-tabs centered class="ml-n9" v-model="active_tab">
+        <v-tab v-for="(app, i) in topApps" :key="i" @click="routeTo(app.route)">
+          {{ app.name }}
+        </v-tab>
+      </v-tabs>
     </v-app-bar>
 
     <GithubCorner
@@ -14,11 +20,14 @@
 
     <!-- Sizes your content based upon application components -->
     <v-main color="primary">
+      <particlesJS
+        style="position: absolute; width: 100%; height: 100%"
+      ></particlesJS>
+
       <!-- Provides the application the proper gutter -->
-      <v-container fluid>
-        <!-- If using vue-router -->
-        <transition>
-          <router-view></router-view>
+      <v-container fluid class="bringToFront">
+        <transition name="fade" mode="out-in">
+          <router-view class="routerViewFill"></router-view>
         </transition>
       </v-container>
     </v-main>
@@ -43,18 +52,13 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import GithubCorner from "vue-github-corners";
+import particlesJS from "./components/particlesJS";
 
 export default {
   name: "App",
   components: {
     GithubCorner,
-  },
-  data() {
-    return {
-      impressum: null,
-      dsgvo: null,
-      showOverlay: true,
-    };
+    particlesJS,
   },
   sockets: {
     connect() {
@@ -65,7 +69,34 @@ export default {
       console.error(error);
     },
   },
+  data() {
+    return {
+      showOverlay: null,
+      impressum: null,
+      dsgvo: null,
+      active_tab: 0,
+      topApps: [
+        {
+          name: "Home",
+          route: "home",
+        },
+        {
+          name: "Chat",
+          route: "chat.settings",
+        },
+      ],
+    };
+  },
+  mounted() {
+    // set currently active tab selected
+    this.active_tab = this.topApps.findIndex(
+      (el) => el.route === this.$route.name
+    );
+  },
   methods: {
+    routeTo(name) {
+      this.$router.push({ name }).catch(() => {});
+    },
     showImpressum() {
       if (!this.impressum) {
         axios.get("/impressum").then((data) => {
@@ -101,8 +132,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.routerViewFill {
+  width: 100%;
+  height: 100%;
+}
+
 .appClass {
   background: var(--v-background-base) !important;
+  overflow: hidden !important;
 }
 
 #vue-github-corner {

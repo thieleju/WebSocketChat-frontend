@@ -47,28 +47,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.bringToFront {
+  z-index: 5;
+}
+
 .containerLeft {
-  background: var(--v-background2-base);
+  margin-bottom: auto;
   margin-top: 5vh;
   margin-right: 1vw;
   margin-left: auto;
   padding: 0;
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  height: 80vh;
+  z-index: 5;
 }
 
 .containerRight {
-  background: var(--v-background2-base);
+  background-color: var(--v-background2-base);
   margin-top: 5vh;
   margin-left: 1vw;
   margin-right: auto;
   padding-right: 4px;
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  height: 80vh;
+  z-index: 5;
 }
 
 .fade-enter-active,
