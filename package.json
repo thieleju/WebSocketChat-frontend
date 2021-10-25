@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --mode development",
-    "build": "vue-cli-service build --mode production --max_old_space_size=4096",
+    "build": "vue-cli-service build --mode production --max_old_space_size=5120",
     "test": "echo 'skipping test'",
     "lint": "vue-cli-service lint"
   },
