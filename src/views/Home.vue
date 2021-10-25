@@ -28,10 +28,9 @@ export default {
     return {
       textArray: [
         "Hello",
-        "My name is julian",
-        "And this is my site",
-        "Enjoy your stay",
-        "Please be nice 😄",
+        "This site is still WIP",
+        "Anyway",
+        "Enjoy your stay!",
       ],
     };
   },
