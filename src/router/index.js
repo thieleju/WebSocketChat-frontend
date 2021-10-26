@@ -9,6 +9,9 @@ import Chat from "../views/Chat.vue";
 import settings from "../components/settings.vue";
 import channel from "../components/channel.vue";
 
+// raspberry pi
+import RaspberryPI from "../views/RaspberryPI";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -39,6 +42,12 @@ const routes = [
         meta: { title: "Channel" },
       },
     ],
+  },
+  {
+    path: "/raspberrypi",
+    name: "pi.home",
+    component: RaspberryPI,
+    meta: { title: "Raspberry PI" },
   },
   {
     // fallback route

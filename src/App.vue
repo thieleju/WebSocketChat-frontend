@@ -84,6 +84,10 @@ export default {
           name: "Chat",
           route: "chat.settings",
         },
+        {
+          name: "Raspberry PI",
+          route: "pi.home",
+        },
       ],
     };
   },
