@@ -1,22 +1,33 @@
 <template>
   <div>
-    <img id="image" />
+    <img class="stream" :src="streamSource" />
+    <p class="text-center headline">
+      Running remote python explorerhat script coming soon
+    </p>
   </div>
 </template>
 
 <script>
 export default {
+  components: {},
   data() {
     return {};
   },
-  sockets: {
-    image(data) {
-      console.log("image data", data);
-      const image = document.getElementById("image");
-      image.src = "data:image/jpeg;base64," + data;
+  computed: {
+    streamSource() {
+      return (
+        process.env.VUE_APP_BASE_URL +
+        process.env.VUE_APP_WEBCAM_PATH +
+        "?action=stream"
+      );
     },
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.stream {
+  display: flex;
+  margin: auto;
+}
+</style>
