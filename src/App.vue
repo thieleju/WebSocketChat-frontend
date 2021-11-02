@@ -135,7 +135,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .routerViewFill {
   width: 100%;
   height: 100%;
@@ -147,6 +147,11 @@ export default {
 }
 
 #vue-github-corner {
+  position: relative;
+  z-index: 5;
+}
+
+.bringToFront {
   position: relative;
   z-index: 5;
 }
