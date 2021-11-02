@@ -47,10 +47,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.bringToFront {
-  z-index: 5;
-}
-
 .containerLeft {
   margin-bottom: auto;
   margin-top: 5vh;
